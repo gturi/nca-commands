@@ -1,0 +1,34 @@
+aliases:
+  - name: update
+    description: merge specified branch into current one
+    commandType: Function
+    command: |
+      const result = shelljs.exec('git branch --show-current');
+
+      const code = result.code;
+      if (code !== 0) {
+        throw new Error('Git command failed');
+      }
+
+      const currentBranch = result.stdout;
+      if (currentBranch === 'main' || currentBranch === 'master' || currentBranch === 'develop' ) {
+        throw new Error(`${currentBranch} should be updated via PR`);
+      }
+
+      const branch = args.branch;
+      const mergeStrategy = args.s;
+      shelljs.exec(`git checkout ${branch}`);
+      shelljs.exec(`git pull`);
+      shelljs.exec(`git checkout ${currentBranch}`);
+      shelljs.exec(`git merge ${mergeStrategy} ${branch}`);
+    options:
+      - name: s
+        alternativeName: strategy
+        description: merge strategy
+        optionType: String
+        defaultValue: ''
+    positionalArguments:
+      - name: branch
+        description: branch to pull and merge into current one
+        type: String
+        required: true
