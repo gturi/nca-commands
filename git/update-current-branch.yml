@@ -3,12 +3,7 @@ aliases:
     description: merge specified branch into current one
     commandType: Function
     command: |
-      const result = shelljs.exec('git branch --show-current');
-
-      const code = result.code;
-      if (code !== 0) {
-        throw new Error('Git command failed');
-      }
+      const result = safeExec('git branch --show-current');
 
       const currentBranch = result.stdout;
       if (currentBranch === 'main' || currentBranch === 'master' || currentBranch === 'develop' ) {
@@ -17,10 +12,10 @@ aliases:
 
       const branch = args.branch;
       const mergeStrategy = args.s;
-      shelljs.exec(`git checkout ${branch}`);
-      shelljs.exec(`git pull`);
-      shelljs.exec(`git checkout ${currentBranch}`);
-      shelljs.exec(`git merge ${mergeStrategy} ${branch}`);
+      safeExec(`git checkout ${branch}`);
+      safeExec(`git pull`);
+      safeExec(`git checkout ${currentBranch}`);
+      safeExec(`git merge ${mergeStrategy} ${branch}`);
     options:
       - name: s
         alternativeName: strategy
