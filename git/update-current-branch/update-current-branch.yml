@@ -1,0 +1,16 @@
+aliases:
+  - name: update
+    description: merge specified branch into current one
+    commandType: Module
+    command: ./update-current-branch.js
+    options:
+      - name: s
+        alternativeName: strategy
+        description: merge strategy
+        optionType: String
+        defaultValue: ''
+    positionalArguments:
+      - name: branch
+        description: branch to pull and merge into current one
+        type: String
+        required: true
