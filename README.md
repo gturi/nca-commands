@@ -2,6 +2,20 @@
 
 Some aliases to use with ![nca](https://github.com/FlamingTuri/nca) project.
 
+## Install
+
+Clone this repository:
+
+```
+git clone https://github.com/FlamingTuri/nca-aliases.git
+```
+
+After installing nca, add the following line to your `config.yml`:
+
+```yml
+includePaths:
+  - /absolute/path/to/nca-aliases
+```
 
 ## Contributing
 
