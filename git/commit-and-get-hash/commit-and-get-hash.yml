@@ -1,0 +1,5 @@
+aliases:
+  - name: commit
+    description: merge specified branch into current one
+    commandType: Module
+    command: ./commit-and-get-hash.js
