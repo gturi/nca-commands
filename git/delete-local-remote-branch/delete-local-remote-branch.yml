@@ -1,0 +1,10 @@
+aliases:
+  - name: delete
+    description: delete specified branches locally and remotely
+    commandType: Module
+    command: delete-local-remote-branch.js
+    positionalArguments:
+      - name: branches
+        description: branches to delete
+        type: StringList
+        required: true
