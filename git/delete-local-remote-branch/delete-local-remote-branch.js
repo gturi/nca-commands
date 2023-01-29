@@ -6,7 +6,7 @@ module.exports = function (args, shelljs, safeExec) {
     throw new Error(`${currentBranch} cannot be deleted`);
   }
 
-  const branches = args.branches.join(" ");
+  const branches = args.branches.join(' ');
   safeExec(`git branch -d ${branches}`);
   safeExec(`git push origin --delete ${branches}`);
 };
