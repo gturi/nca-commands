@@ -1,15 +1,15 @@
-module.exports = function (args, shelljs, safeExec) {
-  const result = safeExec('git branch --show-current');
+module.exports = function (input) {
+  const result = input.shelljsSafeExec('git branch --show-current');
 
   const currentBranch = result.stdout;
   if (currentBranch === 'main' || currentBranch === 'master' || currentBranch === 'develop') {
     throw new Error(`${currentBranch} should be updated via PR`);
   }
 
-  const branch = args.branch;
-  const mergeStrategy = args.s;
-  safeExec(`git checkout ${branch}`);
-  safeExec(`git pull`);
-  safeExec(`git checkout ${currentBranch}`);
-  safeExec(`git merge ${mergeStrategy} ${branch}`);
+  const branch = input.args.branch;
+  const mergeStrategy = input.args.s;
+  input.shelljsSafeExec(`git checkout ${branch}`);
+  input.shelljsSafeExec(`git pull`);
+  input.shelljsSafeExec(`git checkout ${currentBranch}`);
+  input.shelljsSafeExec(`git merge ${mergeStrategy} ${branch}`);
 };

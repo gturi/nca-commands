@@ -1,21 +1,7 @@
-module.exports = function (args, shelljs, safeExec) {
-  const printSeparator = () => console.log('-----------------------------------------------');
+module.exports = function (input) {
+  const printSeparator = () => console.log('-'.repeat(50));
 
-  const spawn = require('child_process').spawn;
-  const execCommand = (command, params) => {
-    return new Promise((resolve, reject) => {
-      // inherit flag makes the spawned process to use console colors
-      spawn(command, params, { stdio: "inherit" }).on('exit', code => {
-        if (code !== 0) {
-          return reject(`not in a git repo, exit code ${code}`);
-        } else {
-          return resolve();
-        }
-      });
-    });
-  };
-
-  execCommand('git', ['status'])
+  input.spawn('git', ['status'])
     .then(() => {
       printSeparator();
 
@@ -25,15 +11,15 @@ module.exports = function (args, shelljs, safeExec) {
 
       return prompt('Insert your commit message: ');
     })
-    .then(commitMessage => execCommand('git', ['commit', '-m', `"${commitMessage}"`]))
+    .then(commitMessage => input.spawn('git', ['commit', '-m', `"${commitMessage}"`]))
     .then(() => {
       printSeparator();
-      return execCommand('git', ['status']);
+      return input.spawn('git', ['status']);
     }).then(() => {
       printSeparator();
-      safeExec('git rev-parse --verify HEAD');
+      input.shelljsSafeExec('git rev-parse --verify HEAD');
       printSeparator();
       process.exit(0);
-    });
+    }).catch(code => process.exit(code));
 
 };
