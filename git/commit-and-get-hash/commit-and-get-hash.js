@@ -3,19 +3,19 @@ module.exports = function (input) {
 
   printSeparator();
 
-  input.spawnSync('git', ['status']);
+  input.cliUtils.spawnSync('git', ['status']);
 
   printSeparator();
 
-  input.spawnSync('git', ['commit'], { stdio: 'inherit' });
+  input.cliUtils.spawnSync('git', ['commit'], { stdio: 'inherit' });
 
   printSeparator();
 
-  input.spawnSync('git', ['status']);
+  input.cliUtils.spawnSync('git', ['status']);
 
   printSeparator();
 
-  input.shelljsSafeExec('git rev-parse --verify HEAD');
+  input.cliUtils.shelljsSafeExec('git rev-parse --verify HEAD');
 
   printSeparator();
 };
