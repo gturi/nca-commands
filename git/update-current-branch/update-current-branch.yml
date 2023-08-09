@@ -14,3 +14,5 @@ aliases:
         description: branch to pull and merge into current one
         type: String
         required: true
+    completion:
+      completionPath: ./update-current-branch-completion.js

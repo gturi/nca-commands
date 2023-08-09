@@ -1,12 +1,18 @@
 module.exports = function (input) {
-  const result = input.cliUtils.shelljsSafeExec('git branch --show-current');
+  const gitSharedLogic = require('../git-shared-logic');
 
-  const currentBranch = result.stdout;
-  if (currentBranch === 'main' || currentBranch === 'master' || currentBranch === 'develop') {
+  const currentBranch = gitSharedLogic.getCurrentBranch();
+  const protectedBranches = gitSharedLogic.protectedBranches;
+
+  if (protectedBranches.includes(currentBranch)) {
     throw new Error(`${currentBranch} should be updated via PR`);
   }
 
   const branch = input.args.branch;
+  if (currentBranch === branch) {
+    throw new Error(`current branch and target branch should be different`);
+  }
+
   const mergeStrategy = input.args.s;
   input.cliUtils.shelljsSafeExec(`git checkout ${branch}`);
   input.cliUtils.shelljsSafeExec(`git pull`);
