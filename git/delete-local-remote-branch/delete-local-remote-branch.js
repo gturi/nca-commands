@@ -1,9 +1,14 @@
 module.exports = function (input) {
-  const result = input.cliUtils.shelljsSafeExec('git branch --show-current');
+  const sharedLogic = require('./shared-logic');
 
-  const currentBranch = result.stdout;
-  if (currentBranch === 'main' || currentBranch === 'master' || currentBranch === 'develop') {
-    throw new Error(`${currentBranch} cannot be deleted`);
+  const forbiddenBranchNames = sharedLogic.getForbiddenBranchNames();
+
+  const nonDeletableBranches = input.args.branches
+    .filter(branch => forbiddenBranchNames.includes(branch))
+    .join(' ');
+
+  if (nonDeletableBranches.length > 0) {
+    throw new Error(`${nonDeletableBranches} cannot be deleted`);
   }
 
   const branches = input.args.branches.join(' ');

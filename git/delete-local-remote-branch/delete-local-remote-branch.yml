@@ -8,3 +8,6 @@ aliases:
         description: branches to delete
         type: StringList
         required: true
+    completion:
+      completionPath: ./delete-local-remote-branch-completion.js
+
