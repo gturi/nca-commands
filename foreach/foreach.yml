@@ -1,0 +1,11 @@
+aliases:
+  - name: foreach
+    description: execute command for each directory in the current one
+    commandType: Module
+    command: ./foreach.js
+    positionalArguments:
+      - name: command
+        description: command to execute
+        # StringList type allows to pass multiple arguments without needing to wrap them between quotes
+        type: StringList
+        required: true
