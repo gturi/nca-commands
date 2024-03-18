@@ -1,4 +1,4 @@
-aliases:
+commands:
   - name: commit
     description: creates a commit and returns its hash
     commandType: Module

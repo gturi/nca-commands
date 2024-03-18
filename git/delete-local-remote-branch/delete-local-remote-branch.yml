@@ -1,4 +1,4 @@
-aliases:
+commands:
   - name: delete
     description: delete specified branches locally and remotely
     commandType: Module

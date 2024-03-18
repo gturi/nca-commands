@@ -1,4 +1,4 @@
-aliases:
+commands:
   - name: update
     description: merge specified branch into current one
     commandType: Module

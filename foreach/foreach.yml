@@ -1,4 +1,4 @@
-aliases:
+commands:
   - name: foreach
     description: execute command for each directory in the current one
     commandType: Module
