@@ -1,3 +1,8 @@
+const nodeCommandAlias = require("node-command-alias");
+
+/**
+ * @param {nodeCommandAlias.CommandHandlerInput} input
+ */
 module.exports = function (input) {
   const gitSharedLogic = require('../git-shared-logic');
 
