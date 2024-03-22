@@ -1,6 +1,6 @@
 # nca-aliases
 
-Some aliases to use with ![nca](https://github.com/gturi/nca) project.
+Some aliases to use with [nca](https://github.com/gturi/nca) project.
 
 ## Install
 
