@@ -8,7 +8,7 @@ module.exports = function (input) {
       .map(file => file.name)
   }
 
-  const shelljs = input.cliUtils.shelljs;
+  const { execSync } = require('child_process');
   const command = input.args.command.join(' ');
 
   const workingDir = process.cwd();
@@ -28,10 +28,10 @@ module.exports = function (input) {
 
     console.log(message);
 
-    const exitCode = shelljs.exec(command).code;
-
-    if (exitCode !== 0) {
-      console.error(`Failed executing command '${command}' in ${process.cwd()} (exit code: ${exitCode})`);
+    try {
+      execSync(command, { stdio: "inherit" });
+    } catch (error) {
+      console.error(`Failed executing command '${command}' in ${process.cwd()} (exit code: ${error.status})`);
     }
 
     console.log(`\n${separator}`)
