@@ -10,5 +10,5 @@ indent_size = 4
 [*.{js,yml}]
 indent_size = 2
 
-[*.bat]
+[*.{bat,ps1}]
 end_of_line = crlf
