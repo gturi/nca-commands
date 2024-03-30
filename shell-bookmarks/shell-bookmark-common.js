@@ -18,6 +18,15 @@ module.exports = {
    * @returns {string}
    */
   getBookmarkPath(bookmarkName) {
-    return path.resolve(os.homedir(), '.shell-bookmarks', bookmarkName);
-  }
+    return path.resolve(getBookmarkDirectoryPath(), bookmarkName);
+  },
+  bookmarkDirectoryPath: getBookmarkDirectoryPath()
+}
+
+/**
+ *
+ * @returns {string}
+ */
+function getBookmarkDirectoryPath() {
+  return path.resolve(os.homedir(), '.shell-bookmarks');
 }
