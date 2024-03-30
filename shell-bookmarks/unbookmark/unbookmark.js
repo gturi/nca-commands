@@ -1,8 +1,6 @@
-const path = require('node:path');
-const os = require("os");
 const fs = require("fs");
-const isWindows = require('../../utils/platform-utils.js').isWindows;
 const CommandHandlerInput = require('../../utils/nca-utils.js').commandHandlerInputType();
+const ShellBookmarkCommon = require('../shell-bookmark-common.js');
 
 /**
  * @param {CommandHandlerInput} input
@@ -12,9 +10,9 @@ module.exports = function (input) {
   const bookmarkNames = input.args.bookmarkNames;
 
   iter(bookmarkNames)
-    .map(bookmarkName => isWindows && !bookmarkName.endsWith('.lnk') ? `${bookmarkName}.lnk` : bookmarkName)
+    .map(bookmarkName => ShellBookmarkCommon.getSanitizedBookmarkName(bookmarkName))
     .forEach(bookmarkName => {
-      const bookmarkPath = path.resolve(os.homedir(), '.shell-bookmarks', bookmarkName);
+      const bookmarkPath = ShellBookmarkCommon.getBookmarkPath(bookmarkName);
       if (!fs.existsSync(bookmarkPath)) {
         console.warn(`Bookmark "${bookmarkName}" does not exist`);
         return;

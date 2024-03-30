@@ -1,10 +1,10 @@
 const path = require('node:path');
-const os = require("os");
 const isWindows = require('../../utils/platform-utils.js').isWindows;
 const PathUtils = require('../../utils/path-utils.js');
 const StringUtils = require('../../utils/string-utils.js');
 const runSync = require('../../utils/shell-utils.js').runSync;
 const CommandHandlerInput = require('../../utils/nca-utils.js').commandHandlerInputType();
+const ShellBookmarkCommon = require('../shell-bookmark-common.js');
 
 /**
  * @param {CommandHandlerInput} input
@@ -16,7 +16,7 @@ module.exports = function (input) {
 
   const bookmarkName = getBookmarkName(input, directory);
 
-  const bookmarkPath = path.resolve(os.homedir(), '.shell-bookmarks', bookmarkName);
+  const bookmarkPath = ShellBookmarkCommon.getBookmarkPath(bookmarkName);
 
   if (isWindows) {
     const createShortcut = path.resolve(__dirname, 'create-shortcut.ps1');
@@ -31,14 +31,5 @@ function getBookmarkName(input, directory) {
     ? path.basename(directory)
     : input.args.bookmarkName;
 
-  if (isWindows && !bookmarkName.endsWith('.lnk')) {
-    bookmarkName += '.lnk';
-  }
-
-  if (!bookmarkName.includes(' ')) {
-    return bookmarkName;
-  }
-
-  console.warn("Bookmark name cannot contain spaces, replacing them with dashes");
-  return bookmarkName.replace(' ', '-');
+  return ShellBookmarkCommon.getSanitizedBookmarkName(bookmarkName);
 }
