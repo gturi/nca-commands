@@ -1,0 +1,12 @@
+commands:
+  - name: rnbookmark
+    description: Renames a bookmark
+    commandType: Module
+    command: ./rnbookmark.js
+    positionalArguments:
+      - name: bookmarkName
+        description: 'The name of the bookmark to rename'
+        type: String
+      - name: newBookmarkName
+        description: 'The new name of the bookmark'
+        type: String
