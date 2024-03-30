@@ -11,12 +11,21 @@ module.exports = function (input) {
 
   iter(bookmarkNames)
     .map(bookmarkName => ShellBookmarkCommon.getSanitizedBookmarkName(bookmarkName))
-    .forEach(bookmarkName => {
-      const bookmarkPath = ShellBookmarkCommon.getBookmarkPath(bookmarkName);
-      if (!fs.existsSync(bookmarkPath)) {
-        console.warn(`Bookmark "${bookmarkName}" does not exist`);
-        return;
-      }
-      fs.unlinkSync(bookmarkPath);
-    });
+    .forEach(bookmarkName => deleteBookmark(bookmarkName));
+}
+
+/**
+ * @param {string} bookmarkName
+ */
+function deleteBookmark(bookmarkName) {
+  const bookmarkPath = ShellBookmarkCommon.getBookmarkPath(bookmarkName);
+
+  if (!fs.existsSync(bookmarkPath)) {
+    console.warn(`Bookmark "${bookmarkName}" does not exist`);
+    return;
+  }
+
+  fs.unlinkSync(bookmarkPath);
+
+  console.info(`Removed bookmark "${bookmarkName}"`);
 }
