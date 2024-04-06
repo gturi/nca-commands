@@ -11,5 +11,12 @@ module.exports = {
       stdio: "inherit",
       shell: true
     });
+  },
+  /**
+   * @param {string} powershellScript
+   * @param {string[]} args
+   */
+  runPowershellScriptSync(powershellScript, ...args) {
+    this.runSync('powershell', '-c', powershellScript, ...args);
   }
 }

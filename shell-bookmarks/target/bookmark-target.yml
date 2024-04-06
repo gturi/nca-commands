@@ -1,0 +1,10 @@
+commands:
+  - name: bookmark-target
+    description: Gets the target of a bookmark
+    commandType: Module
+    command: ./bookmark-target.js
+    positionalArguments:
+      - name: bookmarkName
+        description: 'The name of the bookmark'
+        type: String
+        required: true
