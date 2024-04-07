@@ -1,0 +1,52 @@
+commands:
+  - name: shell-bookmarks
+    description: shell bookmarks
+    subCommands:
+      - name: bookmark-target
+        description: Gets the target of a bookmark
+        commandType: Module
+        command: ./bookmark-target/bookmark-target.js
+        completion:
+          completionPath: ./bookmark-target/bookmark-target-completion.js
+        positionalArguments:
+          - name: bookmarkName
+            description: 'The name of the bookmark'
+            type: String
+            required: true
+      - name: bookmark
+        description: Creates a link to a directory so that it can be easily accessed from the command line
+        commandType: Module
+        command: ./bookmark/bookmark.js
+        options:
+          - name: d
+            alternativeName: directory
+            description: 'Path of the directory to bookmark (defaults to current directory)'
+            optionType: String
+            defaultValue: ''
+        positionalArguments:
+          - name: bookmarkName
+            description: 'The name of the bookmark (defaults to the name of the directory)'
+            type: String
+            defaultValue: ''
+            required: false
+      - name: rnbookmark
+        description: Renames a bookmark
+        commandType: Module
+        command: ./rnbookmark/rnbookmark.js
+        positionalArguments:
+          - name: bookmarkName
+            description: 'The name of the bookmark to rename'
+            type: String
+          - name: newBookmarkName
+            description: 'The new name of the bookmark'
+            type: String
+      - name: unbookmark
+        description: Removes a previously created bookmark
+        commandType: Module
+        command: ./unbookmark/unbookmark.js
+        completion:
+          completionPath: ./unbookmark/unbookmark-completion.js
+        positionalArguments:
+          - name: bookmarkNames
+            description: 'The name of the bookmarks to remove (on windows you can omit ".lnk" extension)'
+            type: StringList
