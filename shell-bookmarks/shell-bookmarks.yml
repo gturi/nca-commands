@@ -2,6 +2,20 @@ commands:
   - name: shell-bookmarks
     description: shell bookmarks
     subCommands:
+      - name: init
+        description: Gets the target of a bookmark
+        commandType: Module
+        command: ./init/init.js
+        options:
+          - name: cmd
+            description: 'Name of the command to use to cd into the directory pointed by a bookmark'
+            optionType: String
+            defaultValue: 'warp'
+        positionalArguments:
+          - name: shellType
+            description: 'The name of the shell'
+            type: String
+            required: true
       - name: bookmark-target
         description: Gets the target of a bookmark
         commandType: Module
