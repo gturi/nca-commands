@@ -8,7 +8,6 @@ module.exports = function (input) {
 
   const currentBranch = gitSharedLogic.getCurrentBranch();
   const protectedBranches = gitSharedLogic.protectedBranches;
-
   if (protectedBranches.includes(currentBranch)) {
     throw new Error(`${currentBranch} should be updated via PR`);
   }

@@ -1,9 +1,9 @@
-const { execSync } = require('node:child_process');
+const { spawnSync } = require('../utils/shell-utils.js');
 
-const getGitBranches = (command) => {
-  return execSync(command).toString()
+const getGitBranches = (...args) => {
+  return spawnSync('git', 'branch', ...args)?.stdout?.toString()
     .split('\n')
-    .filter(branch => branch !== '');
+    .filter(branch => branch !== '') ?? [];
 }
 
 const protectedBranches = [
@@ -12,9 +12,13 @@ const protectedBranches = [
   'develop'
 ];
 
-const getLocalBranches = () => getGitBranches("git branch --format='%(refname:short)'");
+function getLocalBranches() {
+  return getGitBranches("--format='%(refname:short)'");
+}
 
-const getCurrentBranch = () => getGitBranches("git branch --show-current")[0];
+function getCurrentBranch() {
+  return getGitBranches('--show-current')[0];
+}
 
 module.exports = {
   getGitBranches,

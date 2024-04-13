@@ -1,4 +1,4 @@
-const { spawnSync } = require('node:child_process');
+const { spawnSync: builtinSpawnSync, SpawnSyncReturns } = require('node:child_process');
 
 module.exports = {
   /**
@@ -16,6 +16,14 @@ module.exports = {
     runSync(command, ...args);
   },
   /**
+   * @param {string} command
+   * @param {string[]} args
+   * @returns {SpawnSyncReturns<Buffer>}
+   */
+  spawnSync(command, ...args) {
+    return spawnSync(command, ...args);
+  },
+  /**
    *
    * @param {string[]} args
    * @returns {string[]}
@@ -26,13 +34,31 @@ module.exports = {
 }
 
 /**
-   * @param {string} command
-   * @param {string[]} args
-   */
+ * Spawn function to be used when the command output
+ * should be displayed in the console
+ *
+ * @param {string} command
+ * @param {string[]} args
+ */
 function runSync(command, ...args) {
   const sanitizedArgs = sanitizeArgs(args);
-  spawnSync(command, sanitizedArgs, {
+  builtinSpawnSync(command, sanitizedArgs, {
     stdio: "inherit",
+    shell: true
+  });
+}
+
+/**
+ * Spawn function to be used when it is necessary
+ * to manipulate the command output in the program
+ *
+ * @param {string} command
+ * @param {string[]} args
+ * @returns {SpawnSyncReturns<Buffer>}
+ */
+function spawnSync(command, ...args) {
+  const sanitizedArgs = sanitizeArgs(args);
+  return builtinSpawnSync(command, sanitizedArgs, {
     shell: true
   });
 }
