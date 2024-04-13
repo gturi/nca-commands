@@ -35,8 +35,23 @@ function getNpmRoot() {
         ?? null;
 }
 
-function isNcaInstalledLocally() {
-    const jsonString = spawnSync('npm', 'list', '--json')?.stdout?.toString();
+function listInstalledNodePackages(global = false) {
+    const result = global
+        ? spawnSync('npm', 'list', '--json', '-g')
+        : spawnSync('npm', 'list', '--json');
+    return result?.stdout?.toString()
+}
+
+function isNcaInstalledGlobally() {
+    return isNcaInstalled(true);
+}
+
+function isNcaInstalledLocally(global) {
+    return isNcaInstalled(false);
+}
+
+function isNcaInstalled(global) {
+    const jsonString = listInstalledNodePackages(global);
 
     if (!jsonString) {
         return false;
@@ -56,7 +71,7 @@ function createNcaAlias(ncaCommand, aliasName = null) {
     const finalAliasName = aliasName ?? defaultAliasName;
 
     if (isAliasAlreadyInstalled(finalAliasName)) {
-        console.info(`Skipping installation of alias '${finalAliasName}' since it is already installed.`)
+        console.info(`Skip: alias '${finalAliasName}' already installed.`)
         console.log('\n-------------------------------\n');
         return;
     }
@@ -90,9 +105,16 @@ function isAliasAlreadyInstalled(aliasName) {
     return fs.existsSync(path.resolve(ncaLocalPath, 'bin', aliasName));
 }
 
+if (isNcaInstalledGlobally()) {
+    console.info(`Skip: 'node-command-alias' already installed globally.`)
+    console.log('\n-------------------------------\n');
+} else {
+    console.info(`Installing 'node-command-alias' globally.`)
+    runCommand('npm', 'install', '-g', 'node-command-alias');
+}
 
 if (isNcaInstalledLocally()) {
-    console.info(`Skipping linking of 'node-command-alias' since it is already present.`)
+    console.info(`Skip: 'node-command-alias' already linked.`)
     console.log('\n-------------------------------\n');
 } else {
     console.info(`Linking 'node-command-alias' to enable script autocompletion.`)
