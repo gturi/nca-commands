@@ -1,3 +1,4 @@
+const fs = require('node:fs');
 const path = require('node:path');
 const isWindows = require('../../utils/platform-utils.js').isWindows;
 const PathUtils = require('../../utils/path-utils.js');
@@ -15,6 +16,11 @@ module.exports = function (input) {
   const bookmarkName = getBookmarkName(input, directory);
 
   const bookmarkPath = ShellBookmarkCommon.getBookmarkPath(bookmarkName);
+
+  if (fs.existsSync(bookmarkPath)) {
+    console.error(`Error: bookmarkName '${bookmarkName}' already exists!`);
+    return -1;
+  }
 
   createBookmark(directory, bookmarkPath);
 
