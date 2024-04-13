@@ -17,6 +17,13 @@ includePaths:
   - /absolute/path/to/nca-aliases
 ```
 
+To automate installation steps of some of the utilities and setup of local repo run:
+
+```bash
+./setup.mjs
+```
+
+
 ## Contributing
 
 Contributions, suggestions, issues and feature requests are welcome!
