@@ -10,7 +10,7 @@ module.exports = function (input) {
   function getDirectories(source) {
     return fs.readdirSync(source, { withFileTypes: true })
       .filter(file => file.isDirectory())
-      .map(file => file.name)
+      .map(file => file.name);
   }
 
   const { execSync } = require('child_process');
@@ -39,7 +39,7 @@ module.exports = function (input) {
       console.error(`Failed executing command '${command}' in ${process.cwd()} (exit code: ${error.status})`);
     }
 
-    console.log(`\n${separator}`)
+    console.log(`\n${separator}`);
   });
 
 };
