@@ -1,7 +1,7 @@
-const nodeCommandAlias = require("node-command-alias");
+const CompletionInputType = require('../../utils/nca-utils.js').completionInputType();
 
 /**
- * @param {nodeCommandAlias.CompletionInput} input
+ * @param {CompletionInputType} input
  */
 module.exports = function (input) {
   const gitSharedLogic = require('../git-shared-logic');

@@ -1,7 +1,7 @@
-const nodeCommandAlias = require("node-command-alias");
+const CommandHandlerInput = require('../../utils/nca-utils.js').commandHandlerInputType();
 
 /**
- * @param {nodeCommandAlias.CommandHandlerInput} input
+ * @param {CommandHandlerInput} input
  */
 module.exports = function (input) {
   const sharedLogic = require('./shared-logic');
