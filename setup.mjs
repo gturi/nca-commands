@@ -129,12 +129,12 @@ createNcaAlias(['shell-bookmarks', 'unbookmark'], 'ubk');
 
 const warpCommand = 'w';
 const ncaMainConfigFilePathVariable = 'ncaMainConfigFilePath';
-const shellBookmarksConfigPath = `${__dirname}/shell-bookmarks/shell-bookmarks.yml`;
+const shellBookmarksConfigPath = path.resolve(__dirname, 'shell-bookmarks', 'shell-bookmarks.yml');
 
 console.log(`Add the following to your .bashrc to load warp (${warpCommand}) command\n\n`);
 
 console.log(`# [ shell bookmarks ${warpCommand} command ]`);
-console.log(`export ${ncaMainConfigFilePathVariable}=${shellBookmarksConfigPath}`);
+console.log(`export ${ncaMainConfigFilePathVariable}="${shellBookmarksConfigPath}"`);
 console.log(`eval "$(nca shell-bookmarks init --cmd ${warpCommand} bash)"`);
 console.log(`unset ${ncaMainConfigFilePathVariable}`);
 console.log('# [ ------------------------- ]');
