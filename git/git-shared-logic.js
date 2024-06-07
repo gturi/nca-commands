@@ -6,7 +6,7 @@ const getGitBranches = (...args) => {
     .filter(branch => branch !== '') ?? [];
 }
 
-const protectedBranches = [
+const protectedBranches = process.env.protectedBranches ?? [
   'main',
   'master',
   'develop'
