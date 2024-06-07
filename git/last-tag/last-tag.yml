@@ -1,0 +1,5 @@
+commands:
+  - name: lastTag
+    description: get the last tag of a git repo
+    commandType: Module
+    command: ./last-tag.js
